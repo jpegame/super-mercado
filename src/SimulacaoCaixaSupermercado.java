@@ -1,7 +1,7 @@
 public class SimulacaoCaixaSupermercado {
 
     private int numeroCaixas;
-    private int mediaAtendimentos;
+    private int numeroClientes;
     private double mediaTempoAtendimentoPorCliente;
     private double desvioPadraoTempoAtendimentoPorCliente;
 
@@ -13,8 +13,8 @@ public class SimulacaoCaixaSupermercado {
         this.numeroCaixas = n;
     }
 
-    public void setMediaAtendimentos(int n) {
-        this.mediaAtendimentos = n;
+    public void setNumeroClientes(int n) {
+        this.numeroClientes = n;
     }
 
     public void setMediaTempoAtendimentoPorCliente(double mu) {
@@ -34,9 +34,20 @@ public class SimulacaoCaixaSupermercado {
 
     public double simular() {
         double soma = 0.0;
-        for (int i = 0; i < mediaAtendimentos; i++) {
+        int clientesPorCaixa = numeroClientes / numeroCaixas;
+        for (int i = 0; i < numeroCaixas; i++) {
+            soma += simularCaixa(clientesPorCaixa);
+        }
+
+        return soma / numeroClientes;
+    }
+
+    public double simularCaixa(int clientesPorCaixa) {
+        double soma = 0.0;
+        for (int i = 0; i < clientesPorCaixa; i++) {
             soma += tempoAtendimentoNormalTruncado();
         }
-        return soma / mediaAtendimentos;
+
+        return soma;
     }
 }
